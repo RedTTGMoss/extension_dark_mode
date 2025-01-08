@@ -1,5 +1,5 @@
 [package]
-name = "moss_rust_extension"
+name = "dark_mode"
 version = "0.1.0"
 edition = "2021"
 

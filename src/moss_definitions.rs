@@ -99,3 +99,19 @@ pub unsafe fn moss_defaults_set_text_color(key: &str, r1: i64, g1: i64, b1: i64,
         moss_defaults_set_text_color_impl(extism_pdk::ToMemory::to_memory(&&key)?.offset(), r1, g1, b1, r2, g2, b2);
     Ok(res)
 }
+
+// #[link(wasm_import_module = "extism:host/user")]
+// extern "C" {
+//     #[link_name = "moss_em_config_get"]
+//     fn moss_em_config_get_impl(key: u64) -> u64;
+// }
+// pub unsafe fn moss_em_config_get<T: extism_pdk::FromBytesOwned + for<'de> Deserialize<'de>>(
+//     key: &str,
+// ) -> Result<Return<T>, extism_pdk::Error> {
+//     let res = extism_pdk::Memory::from(moss_em_config_get_impl(
+//         extism_pdk::ToMemory::to_memory(&&key)?.offset(),
+//     ));
+//     let return_value: Result<Return<T>, extism_pdk::Error> =
+//         extism_pdk::FromBytes::from_bytes(&res.to_vec());
+//     return_value
+// }
