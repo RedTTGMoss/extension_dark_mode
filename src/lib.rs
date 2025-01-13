@@ -5,7 +5,7 @@ use extism_pdk::*;
 use serde::{Deserialize, Serialize};
 
 #[plugin_fn]
-pub unsafe fn register(Json(state): Json<MossState>) -> FnResult<ExtensionInfo> {
+pub unsafe fn moss_extension_register(Json(state): Json<MossState>) -> FnResult<ExtensionInfo> {
     let bg_tone = 10;
     let selected_tone = 230;
     let line_gray = 255 - 88;
@@ -119,11 +119,11 @@ pub unsafe fn register(Json(state): Json<MossState>) -> FnResult<ExtensionInfo> 
 }
 
 #[plugin_fn]
-pub unsafe fn extension_loop(Json(state): Json<MossState>) -> FnResult<()> {
+pub unsafe fn moss_extension_loop(Json(state): Json<MossState>) -> FnResult<()> {
     Ok(())
 }
 
 #[plugin_fn]
-pub fn unregister() -> FnResult<()> {
+pub fn moss_extension_unregister() -> FnResult<()> {
     Ok(())
 }
