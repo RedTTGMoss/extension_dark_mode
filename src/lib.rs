@@ -1,5 +1,6 @@
 mod moss_definitions;
-pub use moss_definitions::*;
+pub use moss_definitions::functions::*;
+pub use moss_definitions::types::*;
 
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
