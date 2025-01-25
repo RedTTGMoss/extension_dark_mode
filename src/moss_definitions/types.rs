@@ -1,7 +1,7 @@
 use extism_pdk::{FromBytes, ToBytes, Json};
 use serde::{Deserialize, Serialize};
 
-#[derive(ToBytes, FromBytes, Deserialize, Serialize, PartialEq, Debug, Clone)]
+#[derive(ToBytes, FromBytes, Deserialize, Serialize, PartialEq, Debug, Clone, Copy)]
 #[encoding(Json)]
 pub struct Color {
     pub r: i64,
@@ -17,9 +17,12 @@ impl Color {
     pub fn new_monochrome(color: i64, a: Option<i64>) -> Self {
         Color { r: color, g: color, b: color, a }
     }
+    pub fn from_existing(color: Self, a: Option<i64>) -> Self {
+        Color { r: color.r, g: color.g, b: color.b, a }
+    }
 }
 
-#[derive(ToBytes, FromBytes, Deserialize, Serialize, PartialEq, Debug, Clone)]
+#[derive(ToBytes, FromBytes, Deserialize, Serialize, PartialEq, Debug, Clone Copy)]
 #[encoding(Json)]
 pub struct TextColors {
     pub foreground: Color,
