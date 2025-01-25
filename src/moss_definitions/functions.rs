@@ -1,3 +1,4 @@
+use crate::Color;
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
 
@@ -7,6 +8,9 @@ pub struct File {
     pub key: String,
     pub path: String,
 }
+
+
+
 
 #[derive(ToBytes, Serialize, PartialEq, Debug)]
 #[encoding(Json)]
@@ -56,9 +60,15 @@ pub struct ConfigSet<T> {
 
 #[host_fn]
 extern "ExtismHost" {
+    // GUI
     pub fn moss_gui_register_context_menu(menu: ContextMenu);
-    pub fn moss_em_config_get<T: for<'de> Deserialize<'de>>(key: &str) -> ConfigGet<T>;
     pub fn moss_gui_invert_icon(key: String, result_key: String);
+
+    // Defaults
+    pub fn moss_defaults_set_color(key: String, color: Color);
+
+    // Extension manager
+    pub fn moss_em_config_get<T: for<'de> Deserialize<'de>>(key: &str) -> ConfigGet<T>;
     #[link_name = "moss_em_config_set"]
     fn _moss_em_config_set<T: Serialize>(value: ConfigSet<T>);
 }
@@ -74,28 +84,14 @@ pub unsafe fn moss_em_config_set<T: Serialize>(key: &str, value: T) {
 extern "C" {
     #[link_name = "moss_gui_open_context_menu"]
     fn moss_gui_open_context_menu_impl(key: u64, x: i64, y: i64) -> ();
-    #[link_name = "moss_defaults_set_color"]
-    fn moss_defaults_set_color_impl(key: u64, r: i64, g: i64, b: i64, a: i64) -> ();
-    #[link_name = "moss_defaults_set_text_color"]
-    fn moss_defaults_set_text_color_impl(key: u64, r1: i64, g1: i64, b1: i64, r2: i64, g2: i64, b2: i64) -> ();
 }
 
-pub unsafe fn moss_gui_open_context_menu(key: &str, x: i64, y: i64)
-    -> Result<(), extism_pdk::Error> {
+pub unsafe fn moss_gui_open_context_menu(
+    key: &str,
+    x: i64,
+    y: i64,
+) -> Result<(), extism_pdk::Error> {
     let res =
         moss_gui_open_context_menu_impl(extism_pdk::ToMemory::to_memory(&&key)?.offset(), x, y);
-    Ok(res)
-}
-pub unsafe fn moss_defaults_set_color(key: &str, r: i64, g: i64, b: i64, a: i64)
-    -> Result<(), extism_pdk::Error> {
-    let res =
-        moss_defaults_set_color_impl(extism_pdk::ToMemory::to_memory(&&key)?.offset(), r, g, b, a);
-    Ok(res)
-}
-
-pub unsafe fn moss_defaults_set_text_color(key: &str, r1: i64, g1: i64, b1: i64, r2: i64, g2: i64, b2: i64)
-    -> Result<(), extism_pdk::Error> {
-    let res =
-        moss_defaults_set_text_color_impl(extism_pdk::ToMemory::to_memory(&&key)?.offset(), r1, g1, b1, r2, g2, b2);
     Ok(res)
 }
