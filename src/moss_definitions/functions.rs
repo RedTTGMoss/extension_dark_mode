@@ -1,62 +1,6 @@
-use crate::Color;
+use crate::moss_definitions::types::*;
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
-
-#[derive(ToBytes, Serialize, PartialEq, Debug, Clone)]
-#[encoding(Json)]
-pub struct File {
-    pub key: String,
-    pub path: String,
-}
-
-
-
-
-#[derive(ToBytes, Serialize, PartialEq, Debug)]
-#[encoding(Json)]
-pub struct ExtensionInfo {
-    pub files: Vec<File>,
-}
-
-#[derive(ToBytes, Serialize, PartialEq, Debug, Clone)]
-#[encoding(Json)]
-pub struct ContextButton {
-    pub text: String,
-    pub icon: String,
-    pub context_icon: String,
-    pub action: String,
-    pub context_menu: String,
-}
-
-#[derive(ToBytes, Serialize, PartialEq, Debug)]
-#[encoding(Json)]
-pub struct ContextMenu {
-    pub key: String,
-    pub buttons: Vec<ContextButton>,
-}
-
-#[derive(ToBytes, Deserialize, PartialEq, Debug)]
-#[encoding(Json)]
-pub struct MossState {
-    pub width: i32,
-    pub height: i32,
-    pub current_screen: String,
-    pub opened_context_menus: Vec<String>,
-    pub icons: Vec<String>,
-}
-
-#[derive(FromBytes, Deserialize, PartialEq, Debug)]
-#[encoding(Json)]
-pub struct ConfigGet<T> {
-    pub value: T,
-}
-
-#[derive(ToBytes, Serialize, PartialEq, Debug)]
-#[encoding(Json)]
-pub struct ConfigSet<T> {
-    pub key: String,
-    pub value: T,
-}
 
 #[host_fn]
 extern "ExtismHost" {
