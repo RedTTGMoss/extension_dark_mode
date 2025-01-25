@@ -10,6 +10,7 @@ extern "ExtismHost" {
 
     // Defaults
     pub fn moss_defaults_set_color(key: String, color: Color);
+    pub fn moss_defaults_set_text_color(key: String, colors: TextColors);
 
     // Extension manager
     pub fn moss_em_config_get<T: for<'de> Deserialize<'de>>(key: &str) -> ConfigGet<T>;

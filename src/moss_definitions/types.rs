@@ -22,7 +22,7 @@ impl Color {
     }
 }
 
-#[derive(ToBytes, FromBytes, Deserialize, Serialize, PartialEq, Debug, Clone Copy)]
+#[derive(ToBytes, FromBytes, Deserialize, Serialize, PartialEq, Debug, Clone, Copy)]
 #[encoding(Json)]
 pub struct TextColors {
     pub foreground: Color,
